@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser } from './user.schema';
@@ -13,7 +21,7 @@ export class UsersController {
     return this.usersService.getUser();
   }
 
-  @Post()
+  @Post('add')
   addUser(@Body() user: CreateUserDto): Promise<IUser> {
     return this.usersService.addUser(user);
   }
@@ -23,7 +31,7 @@ export class UsersController {
     return this.usersService.updateUser(id, user);
   }
 
-  @Patch(':id')
+  @Delete(':id')
   deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
   }
