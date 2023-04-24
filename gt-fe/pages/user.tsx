@@ -14,7 +14,7 @@ export default function User(): JSX.Element {
   };
 
   useEffect(() => {
-    fetch("http://localhost:4200/user/all")
+    fetch("http://localhost:3000/user")
       .then((res) => res.json())
       .then((res) => setUsers(res));
   });
