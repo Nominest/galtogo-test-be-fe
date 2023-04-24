@@ -1,23 +1,16 @@
-import { iUser } from "@/util/user";
-import { useEffect, useState } from "react";
+import { IUser } from "@/util/user";
+import { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BsPersonAdd } from "react-icons/bs";
 import UserForm from "@/components/UserForm";
 
-export default function User(): JSX.Element {
-  const [users, setUsers] = useState<iUser[] | null>(null);
+export default function User(props: { users: IUser[] }): JSX.Element {
   const [show, setShow] = useState(false);
-
+  const { users } = props;
   const handler = () => {
     setShow(show ? false : true);
   };
-
-  useEffect(() => {
-    fetch("http://localhost:3000/user")
-      .then((res) => res.json())
-      .then((res) => setUsers(res));
-  });
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -45,7 +38,7 @@ export default function User(): JSX.Element {
           </div>
           <ul>
             {users &&
-              users.map((user: iUser, i: number) => (
+              users.map((user: IUser, i: number) => (
                 <li
                   key={i}
                   className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-5 sm:grid-cols-2 grid-cols-2 items-center justify-between cursor-pointer"

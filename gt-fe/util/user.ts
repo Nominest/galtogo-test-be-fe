@@ -19,7 +19,7 @@
 //   },
 // ];
 
-export type iUser = {
+export type IUser = {
   _id: string;
   firstName: string;
   lastName: string;
