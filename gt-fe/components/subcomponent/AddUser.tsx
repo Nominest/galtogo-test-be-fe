@@ -7,11 +7,6 @@ export default function AddUser(): JSX.Element {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("Last name", e.target.lastname.value);
-    console.log("First name", e.target.firstname.value);
-    console.log("email name", e.target.email.value);
-    console.log("Phone name", e.target.phone.value);
-
     const newUser = {
       lastName: e.target.lastname.value,
       firstName: e.target.firstname.value,
@@ -22,8 +17,13 @@ export default function AddUser(): JSX.Element {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(newUser),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => setUserData((prevUserData) => [...prevUserData, data]))
+      .catch((error) => console.log(error));
+    e.target.reset();
   };
+
   return (
     <form className="grid grid-cols-2 w-4/6 gap-4" onSubmit={handleSubmit}>
       <div className="input-type">

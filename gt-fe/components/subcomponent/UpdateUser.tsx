@@ -1,17 +1,37 @@
 // import { useState } from "react";
-// import { BiBrush } from "react-icons/bi";
-// import Success from "./Succes";
+// import { BiPlus } from "react-icons/bi";
 // import { IUser } from "@/util/user";
 
-// export default function UpdateUser(): JSX.Element {
-//   const [userData, setUserData] = useState<IUser[]>([]);
+// interface IUpdateUserProps {
+//   user: IUser;
+// }
 
-//   const handleSubmit = (e: any) => {
+// export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
+//   const [userData, setUserData] = useState<IUser>(props.user);
+
+//   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
-//     console.log(userData);
+
 //     const updatedUser = {
-//       lastName: e.target.lastname.value,
+//       ...userData,
+//       lastName: e.currentTarget.lastname.value,
+//       firstName: e.currentTarget.firstname.value,
+//       email: e.currentTarget.email.value,
+//       phone: e.currentTarget.phone.value,
 //     };
+//     fetch(`http://localhost:3000/user/${props.user.id}`, {
+//       headers: { "Content-Type": "application/json" },
+//       method: "PUT",
+//       body: JSON.stringify(updatedUser),
+//     })
+//       .then((response) => {
+//         if (!response.ok) {
+//           throw new Error("Network response was not ok");
+//         }
+//         return response.json();
+//       })
+//       .then((data) => setUserData(data))
+//       .catch((error) => console.log(error));
 //   };
 
 //   return (
@@ -22,6 +42,7 @@
 //           name="lastname"
 //           className="border w-full px-5 py-3 focus:outline-none rounded-md"
 //           placeholder="Овог"
+//           defaultValue={userData.lastName}
 //         />
 //       </div>
 //       <div className="input-type">
@@ -30,6 +51,7 @@
 //           name="firstname"
 //           className="border w-full px-5 py-3 focus:outline-none rounded-md"
 //           placeholder="Нэр"
+//           defaultValue={userData.firstName}
 //         />
 //       </div>
 //       <div className="input-type">
@@ -38,6 +60,7 @@
 //           name="email"
 //           className="border w-full px-5 py-3 focus:outline-none rounded-md"
 //           placeholder="И-мэйл"
+//           defaultValue={userData.email}
 //         />
 //       </div>
 //       <div className="input-type">
@@ -46,13 +69,17 @@
 //           name="phone"
 //           className="border w-full px-5 py-3 focus:outline-none rounded-md"
 //           placeholder="Утасны дугаар"
+//           defaultValue={userData.phone}
 //         />
 //       </div>
 
-//       <button className="flex justify-center text-md w-2/8 bg-yellow-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 border-yellow-500 hover:text-yellow-500">
+//       <button
+//         type="submit"
+//         className="flex justify-center text-md w-2/8 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 border-green-500 hover:text-green-500"
+//       >
 //         Update
 //         <span className="px-1">
-//           <BiBrush size={24} />
+//           <BiPlus size={24} />
 //         </span>
 //       </button>
 //     </form>

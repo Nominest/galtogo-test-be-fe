@@ -1,4 +1,6 @@
+import Add from "@/pages/user/add";
 import AddUser from "./subcomponent/AddUser";
+import UpdateUser from "./subcomponent/UpdateUser";
 
 export default function UserForm(): JSX.Element {
   const flag = false;
@@ -6,8 +8,7 @@ export default function UserForm(): JSX.Element {
   return (
     <div>
       <div className="container-mx-auto py-5">
-        {/* {flag ? <AddUser /> : <UpdateUser />}
-         */}
+        {/* {flag ? <AddUser /> : <UpdateUser />} */}
         <AddUser />
       </div>
     </div>

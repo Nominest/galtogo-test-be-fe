@@ -5,14 +5,16 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsPersonAdd } from "react-icons/bs";
 import UserForm from "@/components/UserForm";
+import UpdateUser from "@/components/subcomponent/UpdateUser";
 
 export default function User(): JSX.Element {
   const [users, setUsers] = useState<IUser[] | null>(null);
-  const [show, setShow] = useState(false);
+  const [showUserForm, setShowUserForm] = useState(false);
+  const [showUpdateUser, setShowUpdateUser] = useState(false);
+  const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handler = () => {
-    setShow(show ? false : true);
+    setShowUserForm(!showUserForm);
   };
 
   useEffect(() => {
@@ -21,15 +23,22 @@ export default function User(): JSX.Element {
       .then((res) => setUsers(res));
   }, []);
 
-  function deleteHandler(): void {
-    fetch(`http://localhost:3000/user/${users._id}`, {
+  function deleteHandler(id: string): void {
+    fetch(`http://localhost:3000/user/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then((res) => {
       console.log("res: ", res);
+      if (res.ok) {
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      }
     });
   }
 
+  // function updateHandler(user: IUser): void {
+  //   setShowUpdateUser(true);
+  //   setUserToUpdate(user);
+  // }
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="flex justify-between p-2">
@@ -46,7 +55,7 @@ export default function User(): JSX.Element {
               Add User <BsPersonAdd size={23} />
             </button>
           </div>
-          {show ? <UserForm /> : <></>}
+          {showUserForm ? <UserForm /> : <></>}
 
           <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-2 item-center justify-between cursor-pointer ">
             <span className="hidden md:grid">Овог</span>
@@ -78,13 +87,13 @@ export default function User(): JSX.Element {
                   <p className="sm:text-right md:grid md:grid-cols-1">
                     {user.phone}
                   </p>
-                  <p
-                    className="text-gray-600 sm:text-right hidden sm:grid md:grid md:grid"
-                    onClick={handler}
-                  >
-                    <AiOutlineEdit size={20} />
-                  </p>
-                  <button onClick={deleteHandler}>
+                  <button>
+                    <p className="text-gray-600 sm:text-right hidden sm:grid md:grid">
+                      <AiOutlineEdit size={20} />
+                    </p>
+                  </button>
+
+                  <button onClick={() => deleteHandler(user._id)}>
                     <p className="text-gray-600 sm:text-right hidden sm:grid md:grid">
                       <AiOutlineDelete size={20} />
                     </p>
