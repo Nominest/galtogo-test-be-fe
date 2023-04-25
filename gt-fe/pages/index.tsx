@@ -10,13 +10,13 @@ export default function Home(): JSX.Element {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/user");
-  const users = await res.json();
-  console.log("users", users);
-  return {
-    props: {
-      users,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch("http://localhost:3000/user");
+//   const users = await res.json();
+//   console.log("users", users);
+//   return {
+//     props: {
+//       users,
+//     },
+//   };
+// }

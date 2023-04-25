@@ -1,16 +1,34 @@
 import { IUser } from "@/util/user";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 import { BsPersonAdd } from "react-icons/bs";
 import UserForm from "@/components/UserForm";
 
-export default function User(props: { users: IUser[] }): JSX.Element {
+export default function User(): JSX.Element {
+  const [users, setUsers] = useState<IUser[] | null>(null);
   const [show, setShow] = useState(false);
-  const { users } = props;
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handler = () => {
     setShow(show ? false : true);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3000/user")
+      .then((res) => res.json())
+      .then((res) => setUsers(res));
+  }, []);
+
+  function deleteHandler(): void {
+    fetch(`http://localhost:3000/user/${users._id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      console.log("res: ", res);
+    });
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -30,35 +48,47 @@ export default function User(props: { users: IUser[] }): JSX.Element {
           </div>
           {show ? <UserForm /> : <></>}
 
-          <div className="my-3 p-2 grid md:grid-cols-5 sm:grid-cols-2 item-center justify-between cursor-pointer ">
+          <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-2 item-center justify-between cursor-pointer ">
             <span className="hidden md:grid">Овог</span>
             <span>Нэр</span>
             <span className="hidden sm:grid">И-мэйл</span>
             <span className="sm:text-right">Утасны дугаар</span>
+            <span className="sm:text-right">Edit</span>
+            <span className="sm:text-right">Delete</span>
           </div>
           <ul>
             {users &&
               users.map((user: IUser, i: number) => (
                 <li
                   key={i}
-                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-5 sm:grid-cols-2 grid-cols-2 items-center justify-between cursor-pointer"
+                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-6 sm:grid-cols-3 items-center justify-between cursor-pointer"
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center md:grid-cols-1">
                     <div className="p-3 rounded-lg ">
                       <AiOutlineUser />
                     </div>
                     <p className="pl-4">{user.firstName}</p>
                   </div>
-                  <p className="text-gray-600 sm:text-left text-right hidden md:grid">
+                  <p className="text-gray-600 sm:text-left text-right hidden md:grid md:grid-cols-1">
                     {user.lastName}
                   </p>
-                  <p className="text-gray-600 sm:text-left text-right hidden sm:grid">
+                  <p className="text-gray-600 sm:text-left text-right hidden sm:grid md:grid-cols-1">
                     {user.email}
                   </p>
-                  <p className="sm:text-right">{user.phone}</p>
-                  <p className="text-gray-600 sm:text-right hidden sm:grid  justify-end">
-                    <BsThreeDotsVertical />
+                  <p className="sm:text-right md:grid md:grid-cols-1">
+                    {user.phone}
                   </p>
+                  <p
+                    className="text-gray-600 sm:text-right hidden sm:grid md:grid md:grid"
+                    onClick={handler}
+                  >
+                    <AiOutlineEdit size={20} />
+                  </p>
+                  <button onClick={deleteHandler}>
+                    <p className="text-gray-600 sm:text-right hidden sm:grid md:grid">
+                      <AiOutlineDelete size={20} />
+                    </p>
+                  </button>
                 </li>
               ))}
           </ul>
