@@ -5,13 +5,13 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsPersonAdd } from "react-icons/bs";
 import UserForm from "@/components/UserForm";
-import UpdateUser from "@/components/subcomponent/UpdateUser";
+// import UpdateUser from "@/components/subcomponent/UpdateUser";
 
 export default function User(): JSX.Element {
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [showUserForm, setShowUserForm] = useState(false);
-  const [showUpdateUser, setShowUpdateUser] = useState(false);
-  const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
+  // const [showUpdateUser, setShowUpdateUser] = useState(false);
+  // const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
 
   const handler = () => {
     setShowUserForm(!showUserForm);
@@ -35,10 +35,6 @@ export default function User(): JSX.Element {
     });
   }
 
-  // function updateHandler(user: IUser): void {
-  //   setShowUpdateUser(true);
-  //   setUserToUpdate(user);
-  // }
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="flex justify-between p-2">
@@ -57,45 +53,38 @@ export default function User(): JSX.Element {
           </div>
           {showUserForm ? <UserForm /> : <></>}
 
-          <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-2 item-center justify-between cursor-pointer ">
-            <span className="hidden md:grid">Овог</span>
-            <span>Нэр</span>
-            <span className="hidden sm:grid">И-мэйл</span>
-            <span className="sm:text-right">Утасны дугаар</span>
-            <span className="sm:text-right">Edit</span>
-            <span className="sm:text-right">Delete</span>
+          <div className="my-3 p-2 grid md:grid-cols-10 item-center justify-between cursor-pointer text-center">
+            <span className="col-span-2">Овог</span>
+            <span className="col-span-2">Нэр</span>
+            <span className="col-span-2">И-мэйл</span>
+            <span className="col-span-2">Утасны дугаар</span>
+            <span className="">Edit</span>
+            <span className="">Delete</span>
           </div>
           <ul>
             {users &&
               users.map((user: IUser, i: number) => (
                 <li
                   key={i}
-                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-6 sm:grid-cols-3 items-center justify-between cursor-pointer"
+                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-10 items-center justify-between cursor-pointer text-gray-600 text-center place-items-center"
                 >
-                  <div className="flex items-center md:grid-cols-1">
+                  <div className="flex items-center md:grid-cols-1 col-span-2 ">
                     <div className="p-3 rounded-lg ">
                       <AiOutlineUser />
                     </div>
                     <p className="pl-4">{user.firstName}</p>
                   </div>
-                  <p className="text-gray-600 sm:text-left text-right hidden md:grid md:grid-cols-1">
-                    {user.lastName}
-                  </p>
-                  <p className="text-gray-600 sm:text-left text-right hidden sm:grid md:grid-cols-1">
-                    {user.email}
-                  </p>
-                  <p className="sm:text-right md:grid md:grid-cols-1">
-                    {user.phone}
-                  </p>
+                  <p className="col-span-2">{user.lastName}</p>
+                  <p className="col-span-2">{user.email}</p>
+                  <p className="col-span-2">{user.phone}</p>
                   <button>
-                    <p className="text-gray-600 sm:text-right hidden sm:grid md:grid">
-                      <AiOutlineEdit size={20} />
+                    <p className="">
+                      <AiOutlineEdit size={20} color="green" />
                     </p>
                   </button>
-
                   <button onClick={() => deleteHandler(user._id)}>
-                    <p className="text-gray-600 sm:text-right hidden sm:grid md:grid">
-                      <AiOutlineDelete size={20} />
+                    <p className="">
+                      <AiOutlineDelete size={20} color="red" />
                     </p>
                   </button>
                 </li>
