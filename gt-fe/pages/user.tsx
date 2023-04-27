@@ -1,22 +1,27 @@
 import { IUser } from "@/util/user";
 import { useState, useEffect } from "react";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineEye } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsPersonAdd } from "react-icons/bs";
-import UserForm from "@/components/UserForm";
+// import UserForm from "@/components/UserForm";
+import AddUser from "@/components/subcomponent/AddUser";
+import UserReservation from "@/components/subcomponent/UserReservation";
 // import UpdateUser from "@/components/subcomponent/UpdateUser";
 
 export default function User(): JSX.Element {
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [showUserForm, setShowUserForm] = useState(false);
+  const [showUserReservation, setShowUserReservation] = useState(false);
   // const [showUpdateUser, setShowUpdateUser] = useState(false);
   // const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
 
   const handler = () => {
     setShowUserForm(!showUserForm);
   };
-
+  const userReservationHandler = () => {
+    setShowUserReservation(!showUserReservation);
+  };
   useEffect(() => {
     fetch("http://localhost:3000/user")
       .then((res) => res.json())
@@ -51,13 +56,13 @@ export default function User(): JSX.Element {
               Add User <BsPersonAdd size={23} />
             </button>
           </div>
-          {showUserForm ? <UserForm /> : <></>}
-
-          <div className="my-3 p-2 grid md:grid-cols-10 item-center justify-between cursor-pointer text-center">
+          {showUserForm ? <AddUser /> : <></>}
+          <div className="my-3 p-2 grid md:grid-cols-11 item-center justify-between cursor-pointer text-center">
             <span className="col-span-2">Овог</span>
             <span className="col-span-2">Нэр</span>
             <span className="col-span-2">И-мэйл</span>
             <span className="col-span-2">Утасны дугаар</span>
+            <span className="">Захиалгын түүх</span>
             <span className="">Edit</span>
             <span className="">Delete</span>
           </div>
@@ -66,7 +71,7 @@ export default function User(): JSX.Element {
               users.map((user: IUser, i: number) => (
                 <li
                   key={i}
-                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-10 items-center justify-between cursor-pointer text-gray-600 text-center place-items-center"
+                  className="bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 grid md:grid-cols-11 items-center justify-between cursor-pointer text-gray-600 text-center place-items-center"
                 >
                   <div className="flex items-center md:grid-cols-1 col-span-2 ">
                     <div className="p-3 rounded-lg ">
@@ -77,6 +82,12 @@ export default function User(): JSX.Element {
                   <p className="col-span-2">{user.lastName}</p>
                   <p className="col-span-2">{user.email}</p>
                   <p className="col-span-2">{user.phone}</p>
+                  <button onClick={userReservationHandler}>
+                    <p className="">
+                      <AiOutlineEye size={20} />
+                    </p>
+                    {showUserReservation ? <UserReservation /> : <></>}
+                  </button>
                   <button>
                     <p className="">
                       <AiOutlineEdit size={20} color="green" />
