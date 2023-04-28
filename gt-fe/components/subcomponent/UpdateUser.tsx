@@ -7,18 +7,19 @@ interface IUpdateUserProps {
 }
 
 export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
-  const [users, setUsers] = useState<IUser>(props.user);
+  const [user, setUser] = useState<IUser>(props.user);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
+    console.log(user);
     const updatedUser = {
-      ...users,
+      ...user,
       lastName: e.currentTarget.lastname.value,
       firstName: e.currentTarget.firstname.value,
       email: e.currentTarget.email.value,
       phone: e.currentTarget.phone.value,
     };
-    fetch(`http://localhost:3000/user/${props.user.id}`, {
+    fetch(`http://localhost:3000/user/${props.user._id}`, {
       headers: { "Content-Type": "application/json" },
       method: "PUT",
       body: JSON.stringify(updatedUser),
@@ -29,7 +30,7 @@ export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
         }
         return response.json();
       })
-      .then((data) => setUsers(data))
+      .then((data) => setUser(data))
       .catch((error) => console.log(error));
   };
 
@@ -41,7 +42,7 @@ export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
           name="lastname"
           className="border w-full px-5 py-3 focus:outline-none rounded-md"
           placeholder="Овог"
-          defaultValue={users.lastName}
+          defaultValue={user.lastName}
         />
       </div>
       <div className="input-type">
@@ -50,7 +51,7 @@ export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
           name="firstname"
           className="border w-full px-5 py-3 focus:outline-none rounded-md"
           placeholder="Нэр"
-          defaultValue={users.firstName}
+          defaultValue={user.firstName}
         />
       </div>
       <div className="input-type">
@@ -59,7 +60,7 @@ export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
           name="email"
           className="border w-full px-5 py-3 focus:outline-none rounded-md"
           placeholder="И-мэйл"
-          defaultValue={users.email}
+          defaultValue={user.email}
         />
       </div>
       <div className="input-type">
@@ -68,7 +69,7 @@ export default function UpdateUser(props: IUpdateUserProps): JSX.Element {
           name="phone"
           className="border w-full px-5 py-3 focus:outline-none rounded-md"
           placeholder="Утасны дугаар"
-          defaultValue={users.phone}
+          defaultValue={user.phone}
         />
       </div>
 

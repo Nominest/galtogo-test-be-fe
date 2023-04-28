@@ -9,7 +9,7 @@ export default function UserForm(): JSX.Element {
     <div>
       <div className="container-mx-auto py-5">
         {/* {flag ? <AddUser /> : <UpdateUser />} */}
-        <AddUser />
+        {/* <AddUser /> */}
       </div>
     </div>
   );

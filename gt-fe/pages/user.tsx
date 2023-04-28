@@ -1,5 +1,5 @@
 import { IUser } from "@/util/user";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { AiOutlineUser, AiOutlineEye } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -7,14 +7,20 @@ import { BsPersonAdd } from "react-icons/bs";
 // import UserForm from "@/components/UserForm";
 import AddUser from "@/components/subcomponent/AddUser";
 import UserReservation from "@/components/subcomponent/UserReservation";
+import UpdateUser from "@/components/subcomponent/UpdateUser";
 // import UpdateUser from "@/components/subcomponent/UpdateUser";
 
 export default function User(): JSX.Element {
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [showUserForm, setShowUserForm] = useState(false);
   const [showUserReservation, setShowUserReservation] = useState(false);
-  // const [showUpdateUser, setShowUpdateUser] = useState(false);
-  // const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
+  const [showUpdateUser, setShowUpdateUser] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
+
+  const updateHandler = (user) => {
+    setShowUpdateUser(!showUpdateUser);
+    setCurrentUser(user);
+  };
 
   const handler = () => {
     setShowUserForm(!showUserForm);
@@ -57,6 +63,16 @@ export default function User(): JSX.Element {
             </button>
           </div>
           {showUserForm ? <AddUser /> : <></>}
+          {showUpdateUser ? (
+            <UpdateUser
+            // currentUser={currentUser}
+            // setCurrentUser={setCurrentUser}
+            // users={users}
+            // setUsers={setUsers}
+            />
+          ) : (
+            <></>
+          )}
           <div className="my-3 p-2 grid md:grid-cols-11 item-center justify-between cursor-pointer text-center">
             <span className="col-span-2">Овог</span>
             <span className="col-span-2">Нэр</span>
@@ -88,11 +104,12 @@ export default function User(): JSX.Element {
                     </p>
                     {showUserReservation ? <UserReservation /> : <></>}
                   </button>
-                  <button>
+                  <button onClick={() => updateHandler(user)}>
                     <p className="">
                       <AiOutlineEdit size={20} color="green" />
                     </p>
                   </button>
+
                   <button onClick={() => deleteHandler(user._id)}>
                     <p className="">
                       <AiOutlineDelete size={20} color="red" />
@@ -105,4 +122,7 @@ export default function User(): JSX.Element {
       </div>
     </div>
   );
+}
+function setCurrentUser(user: any) {
+  throw new Error("Function not implemented.");
 }
