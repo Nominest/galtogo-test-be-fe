@@ -1,26 +1,19 @@
 import { IReservation } from "@/util/user";
-import { useEffect, useState } from "react";
 
-export default function UserReservation(): JSX.Element {
-  const [reservationUsers, setReservationUsers] = useState<
-    IReservation[] | null
-  >(null);
+interface UserReservationProps {
+  reservations: IReservation[];
+  selectedReservationDate: string | null;
+}
 
-  useEffect(() => {
-    fetch("http://localhost:3000/reservation")
-      .then((res) => res.json())
-      .then((res) => setReservationUsers(res));
-  }, []);
-
+export default function UserReservation({
+  reservations,
+  selectedReservationDate,
+}: UserReservationProps): JSX.Element {
   return (
-    <>
-      <div>User Reservation</div>
-      {reservationUsers &&
-        reservationUsers.map((reservationUser: IReservation, i: number) => (
-          <div key={i}>
-            <div>{reservationUser.date}</div>
-          </div>
-        ))}
-    </>
+    <div className="my-3 p-2 grid md:grid-cols-11 items-center justify-between cursor-pointer text-center hover:bg-gray-200">
+      <div className="col-span-2">
+        {selectedReservationDate || "No reservations"}
+      </div>
+    </div>
   );
 }

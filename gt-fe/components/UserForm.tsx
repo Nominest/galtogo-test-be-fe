@@ -1,4 +1,3 @@
-import Add from "@/pages/user/add";
 import AddUser from "./subcomponent/AddUser";
 import UpdateUser from "./subcomponent/UpdateUser";
 
