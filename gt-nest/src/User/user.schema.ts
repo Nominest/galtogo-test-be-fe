@@ -11,10 +11,10 @@ export class User {
   @Prop({ required: true })
   firstName: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop()
   email: string;
 
-  @Prop({ required: true, unique: true, max: 99999999 })
+  @Prop()
   phone: number;
 }
 
