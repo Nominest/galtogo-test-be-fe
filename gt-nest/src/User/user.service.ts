@@ -7,6 +7,9 @@ import { IUser, User } from './user.schema';
 
 @Injectable()
 export class UsersService {
+  findByEmail(email: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async getUser(): Promise<IUser[]> {
