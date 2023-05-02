@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { GiKitchenKnives } from "react-icons/gi";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineLogin } from "react-icons/ai";
 
 type PropType = {
   children: ReactNode;
@@ -17,10 +17,14 @@ export default function Sidebar({ children }: PropType): JSX.Element {
               <GiKitchenKnives size={30} />
             </div>
           </Link>
-
           <Link href="/user">
             <div className="bg-gray-100 p-4 rounded-lg inline-block hover:bg-gray-200 cursor-pointers my-4">
               <AiOutlineUser size={30} />
+            </div>
+          </Link>{" "}
+          <Link href="/Login">
+            <div className="bg-gray-100 p-4 rounded-lg inline-block hover:bg-gray-200 cursor-pointers my-4">
+              <AiOutlineLogin size={30} />
             </div>
           </Link>
         </div>
