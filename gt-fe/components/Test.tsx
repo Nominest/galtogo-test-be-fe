@@ -23,7 +23,7 @@ export default function Test(): JSX.Element {
   const [reservations, setReservations] = useState<IReservation[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/user")
+    fetch("http://localhost:3030/user")
       .then((res) => res.json())
       .then((res) => setTestUsers(res));
   }, []);
@@ -34,7 +34,7 @@ export default function Test(): JSX.Element {
       lastName: lastNameInput,
       _id: "",
     };
-    fetch("http://localhost:3000/user/add", {
+    fetch("http://localhost:3030/user/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export default function Test(): JSX.Element {
       firstName: firstNameInput,
       lastName: lastNameInput,
     };
-    fetch(`http://localhost:3000/user/${selectedUser._id}`, {
+    fetch(`http://localhost:3030/user/${selectedUser._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function Test(): JSX.Element {
     setSelectedUser(user);
     setFirstNameInput(user.firstName);
     setLastNameInput(user.lastName);
-    fetch(`http://localhost:3000/reservation?user=${user._id}`)
+    fetch(`http://localhost:3030/reservation?user=${user._id}`)
       .then((res) => res.json())
       .then((res) =>
         setReservations(
@@ -89,7 +89,7 @@ export default function Test(): JSX.Element {
   };
 
   const deleteHandler = (_id: string) => {
-    fetch(`http://localhost:3000/user/${_id}`, {
+    fetch(`http://localhost:3030/user/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

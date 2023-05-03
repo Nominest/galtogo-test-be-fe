@@ -2,18 +2,17 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { FaGoogle } from "react-icons/fa";
 
-export default function Login(): JSX.Element {
+export default function Login() {
   const router = useRouter();
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function loginHandler(e: any) {
     e.preventDefault();
     console.log(e.target.userName.value);
     console.log(e.target.password.value);
   }
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+
   function googleLoginHandler() {
-    axios.get("http://localhost:2024/google-login").then((res) => {
+    axios.get("http://localhost:3030/google-login").then((res) => {
       router.push(res.data);
     });
   }

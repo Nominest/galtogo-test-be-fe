@@ -25,7 +25,7 @@ export class GoogleLoginController {
   googleLogin() {
     const stringifiedParams = queryString.stringify({
       client_id: process.env.CLIENT_ID,
-      redirect_uri: `http://localhost:${process.env.PORT}/google/callback`,
+      redirect_uri: `http://localhost:3030/google/callback`,
       scope: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -69,9 +69,6 @@ export class GoogleLoginController {
       phone: user?.phone,
     };
     const token = this.jwtService.sign(payload);
-    res
-      .status(200)
-      .cookie('token', token)
-      .redirect(`http://localhost:${process.env.CLIENT_PORT}`);
+    res.status(200).cookie('token', token).redirect(`http://localhost:3030`);
   }
 }

@@ -1,5 +1,5 @@
-export default function Register(): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-function-return-type
+export default function Register() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function registerHandler(e: any) {
     e.preventDefault();
   }
