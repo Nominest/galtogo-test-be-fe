@@ -20,6 +20,9 @@ export class User {
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
+export class UpdateUserInput extends User {
+  _id: string;
+}
 export interface IUser {
   lastName: string;
   firstName: string;

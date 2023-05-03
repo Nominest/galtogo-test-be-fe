@@ -1,6 +1,6 @@
 export class CreateUserDto {
-  readonly lastName: string;
-  readonly firstName: string;
-  readonly email: string;
-  readonly phone: number;
+  static lastName: string;
+  static firstName: string;
+  static email: string;
+  static phone: number;
 }

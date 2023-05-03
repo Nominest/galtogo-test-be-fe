@@ -7,9 +7,6 @@ import { IUser, User } from './user.schema';
 
 @Injectable()
 export class UsersService {
-  findByEmail(email: any) {
-    throw new Error('Method not implemented.');
-  }
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async getUser(): Promise<IUser[]> {
@@ -17,9 +14,14 @@ export class UsersService {
     return result;
   }
 
-  async addUser(user: CreateUserDto): Promise<IUser> {
-    const result = await this.userModel.create(user);
+  async addUser(user: User) {
+    const newUser = new this.userModel(user);
+    const result = await newUser.save();
     return result;
+  }
+
+  async findByEmail(email: string) {
+    return await this.userModel.findOne({ email });
   }
 
   async updateUser(id: string, user: UpdateUserDto) {

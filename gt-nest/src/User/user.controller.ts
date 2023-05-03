@@ -21,8 +21,12 @@ export class UsersController {
   ) {}
 
   @Post('add')
-  addUser(@Body() user: CreateUserDto): Promise<IUser> {
-    return this.usersService.addUser(user);
+  addUser(@Body() createUserInput: IUser) {
+    try {
+      return this.usersService.addUser(createUserInput);
+    } catch (error) {
+      return error.message;
+    }
   }
 
   @Get()

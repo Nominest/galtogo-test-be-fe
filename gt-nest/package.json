@@ -28,6 +28,7 @@
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@react-oauth/google": "^0.11.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4",
     "node-fetch": "^3.3.1",
