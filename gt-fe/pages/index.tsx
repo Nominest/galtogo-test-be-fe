@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Test from "../components/Test";
+
 export default function Home(): JSX.Element {
   return (
     <>
@@ -10,14 +11,3 @@ export default function Home(): JSX.Element {
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   const res = await fetch("http://localhost:3000/user");
-//   const users = await res.json();
-//   console.log("users", users);
-//   return {
-//     props: {
-//       users,
-//     },
-//   };
-// }

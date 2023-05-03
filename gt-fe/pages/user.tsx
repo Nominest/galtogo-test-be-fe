@@ -26,13 +26,13 @@ export default function User(): JSX.Element {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/user")
+    fetch("http://localhost:3030/user")
       .then((res) => res.json())
       .then((res) => setUsers(res));
   }, []);
 
   function deleteHandler(id: string): void {
-    fetch(`http://localhost:3000/user/${id}`, {
+    fetch(`http://localhost:3030/user/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then((res) => {
@@ -52,7 +52,7 @@ export default function User(): JSX.Element {
   }
 
   function getUserReservation(userId: string): void {
-    fetch(`http://localhost:3000/reservation?user=${userId}`)
+    fetch(`http://localhost:3030/reservation?user=${userId}`)
       .then((res) => res.json())
       .then((reservations) => {
         setSelectedUserReservation(reservations);
