@@ -12,7 +12,7 @@ import { getGoogleUserInfo } from './getGoogleUserInfo';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../User/user.service';
 import { User } from '../User/user.schema';
-import queryString from 'query-string';
+import * as queryString from 'query-string';
 
 @Controller()
 export class GoogleLoginController {
@@ -25,7 +25,7 @@ export class GoogleLoginController {
   googleLogin() {
     const stringifiedParams = queryString.stringify({
       client_id: process.env.CLIENT_ID,
-      redirect_uri: `http://localhost:3030/google/callback`,
+      redirect_uri: `http://localhost:${process.env.PORT}/google/callback`,
       scope: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -34,13 +34,14 @@ export class GoogleLoginController {
       access_type: 'offline',
       prompt: 'consent',
     });
+
     return `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
   }
 
   @Get('google/callback')
   async verifyGoogle(@Req() req: Request, @Res() res: Response) {
     const { code } = req.query;
-
+    console.log('first');
     if (!code) throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
 
     const accessToken = await getAccessTokenFromCode(code);
@@ -55,9 +56,9 @@ export class GoogleLoginController {
     if (!user) {
       const userInput: User = {
         email: profile.email,
-        lastName: profile.lastName,
-        phone: profile.phone,
-        firstName: profile.firstName,
+        firstName: profile.given_name,
+        lastName: profile.family_name,
+        phone: null,
       };
       user = await this.usersService.addUser(userInput);
     }
