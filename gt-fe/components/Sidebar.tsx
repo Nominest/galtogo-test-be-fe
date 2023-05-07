@@ -26,6 +26,11 @@ export default function Sidebar({ children }: PropType): JSX.Element {
             <div className="bg-gray-100 p-4 rounded-lg inline-block hover:bg-gray-200 cursor-pointers my-4">
               <AiOutlineLogin size={30} />
             </div>
+          </Link>{" "}
+          <Link href="/Sms">
+            <div className="bg-gray-100 p-4 rounded-lg inline-block hover:bg-gray-200 cursor-pointers my-4">
+              <AiOutlineLogin size={30} />
+            </div>
           </Link>
         </div>
       </div>

@@ -22,7 +22,7 @@ focus:invalid:border-pink-500 focus:invalid:ring-pink-500
         <div className="mt-3">
           <span className="block text-sm font-medium text-slate-700">Нэр</span>
           <input
-            type="email"
+            type="text"
             name="firstName"
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500

@@ -13,10 +13,15 @@ export default function Login() {
 
   function googleLoginHandler() {
     axios.get("http://localhost:3030/google-login").then((res) => {
-      router.push(res.data);
+      if (res.data.signedInWithGoogle) {
+        // Redirect to phone verifying page if signed in with Google
+        router.push("/phone-verify");
+      } else {
+        // Redirect to the URL returned by the server
+        router.push(res.data.redirectUrl);
+      }
     });
   }
-
   return (
     <div className="w-screen h-[80vh] flex justify-center items-center">
       <form onSubmit={loginHandler} className="w-1/4">
